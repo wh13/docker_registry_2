@@ -1,0 +1,18 @@
+FROM nginx:1.7.11
+
+RUN rm -rf /etc/nginx/conf.d/*
+RUN rm -rf /etc/nginx/nginx.conf
+RUN rm -rf /usr/share/nginx/*
+RUN mkdir /etc/nginx/auth
+
+VOLUME ["/var/cache/nginx"]
+
+# forward request and error logs to docker log collector
+RUN ln -sf /dev/stdout /var/log/nginx/access.log
+RUN ln -sf /dev/stderr /var/log/nginx/error.log
+
+
+EXPOSE 80 443
+
+
+CMD ["nginx", "-g", "daemon off;"]

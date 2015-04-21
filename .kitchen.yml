@@ -1,0 +1,40 @@
+---
+driver:
+  name: vagrant
+  use_cachier_plugin: true
+
+  # cache:
+  #   scope: "box"
+  customize:
+    memory: 1024
+    cpuexecutioncap: 50
+  network:
+    - ["private_network", {ip: "10.9.9.2"}]
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  #- name: ubuntu-12.04
+  - name: ubuntu-14.04
+
+suites:
+  - name: default
+    run_list:
+      - recipe[docker_registry_2::default]
+    attributes:
+      registry_2:
+        domain: "localhost"
+        nginx:
+          passwords:
+            alex: password
+            test: securepassword
+
+      docker:
+        insecure-registry:
+          - "localhost"
+          - "localhost:443"
+          - "localhost:80"
+
+        log-level: debug
+        debug: true
