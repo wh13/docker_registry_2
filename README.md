@@ -1,9 +1,17 @@
 docker_registry_2 Cookbook
 ==========================
-TODO: Enter the cookbook description here.
+Chef cookbook for docker registry v2 configuration and install.
 
 e.g.
 This cookbook makes your favorite breakfast sandwich.
+
+DEVELOPMENT
+-----------
+
+You can test cookbook via kitchen.
+
+`kitchen converge` - for create VM and execute cookbook recipes.
+`kitchen loginz - for login into provisioned VM.
 
 Requirements
 ------------
