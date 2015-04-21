@@ -128,7 +128,7 @@ end
 
 bash 'Run containers' do
   user 'root'
-  cwd '#{node['registry_2']['path']}'
+  cwd "#{node['registry_2']['path']}"
   code <<-EOH
   sudo docker-compose up -d
   EOH

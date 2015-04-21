@@ -11,7 +11,7 @@ DEVELOPMENT
 You can test cookbook via kitchen.
 
 `kitchen converge` - for create VM and execute cookbook recipes.
-`kitchen loginz - for login into provisioned VM.
+`kitchen login` - for login into provisioned VM.
 
 Requirements
 ------------
