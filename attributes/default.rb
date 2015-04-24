@@ -9,7 +9,11 @@ default['registry_2']['tls']['country'] = 'US'
 
 
 default['registry_2']['compose_file'] = "#{node['registry_2']['path']}/docker-compose.yml"
-default['registry_2']['config_file'] = "#{node['registry_2']['path']}/config.yml"
+
+default['registry_2']['registry']['path'] = "#{node['registry_2']['path']}/registry"
+default['registry_2']['registry']['docker_file'] = "#{node['registry_2']['registry']['path']}/Dockerfile"
+
+default['registry_2']['registry']['config_file'] = "#{node['registry_2']['registry']['path']}/config.yml"
 
 default['registry_2']['nginx']['configs_dir'] = "#{node['registry_2']['path']}/nginx"
 default['registry_2']['nginx']['host_file'] = "#{node['registry_2']['nginx']['configs_dir']}/registry.conf.erb"

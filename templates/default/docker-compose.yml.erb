@@ -1,10 +1,17 @@
+registry:
+  image: registry:2.0
+  ports:
+    - 127.0.0.1:5000:5000
+  volumes:
+    - <%= node['registry_2']['registry']['config_file'] %>:/go/src/github.com/docker/distribution/cmd/registry/config.yml
+    - <%= node['registry_2']['storage']['directory'] %>:<%= node['registry_2']['storage']['directory'] %>
+
 nginx:
   image: nginx:ready
   ports:
     - 0.0.0.0:443:443
   links:
     - registry
-
   volumes:
     - <%= node['registry_2']['tls']['key_file'] %>:/etc/nginx/<%= node['registry_2']['tls']['name'] %>.key:rw
     - <%= node['registry_2']['tls']['cert_file'] %>:/etc/nginx/<%= node['registry_2']['tls']['name'] %>.pem:rw
@@ -12,12 +19,3 @@ nginx:
     - <%= node['registry_2']['nginx']['config_file'] %>:/etc/nginx/nginx.conf
     - <%= node['registry_2']['nginx']['dir'] %>:/usr/share/nginx
     - <%= node['registry_2']['nginx']['passwd_file'] %>:/etc/nginx/auth/registry_passwd
-
-
-registry:
-  image: registry:2.0
-  ports:
-    - 0.0.0.0:5555:5000
-    - 0.0.0.0:5556:5001
-  volumes:
-    - <%= node['registry_2']['config_file'] %>:<%= node['registry_2']['path'] %>/registry.conf.erb

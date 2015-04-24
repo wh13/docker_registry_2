@@ -39,6 +39,10 @@ server {
 	auth_basic "Docker Registry";
     auth_basic_user_file /etc/nginx/auth/registry_passwd;
 
+    more_set_headers 'Docker-Distribution-Api-Version: registry/2.0';
+    #more_set_headers 'Content-Type: application/json; charset=utf-8';
+
+
 	proxy_pass                          http://registry_upstream;
 	proxy_redirect                      off;
 	proxy_set_header  Host              $http_host;   # required for docker client's sake
@@ -49,12 +53,12 @@ server {
   }
 
   location / {
-  		   root /usr/share/nginx;
-		   autoindex on;
+  	root /usr/share/nginx;
+	autoindex on;
 
-		   index   index.html index.htm;
+	index   index.html index.htm;
 
-	       auth_basic "Docker Registry";
-           auth_basic_user_file /etc/nginx/auth/registry_passwd;
+	auth_basic "Docker Registry";
+    auth_basic_user_file /etc/nginx/auth/registry_passwd;
   }
 }

@@ -9,7 +9,7 @@ storage:
   filesystem:
     rootdirectory: <%= node['registry_2']['storage']['directory'] %>
 http:
-  addr: localhost:5000
+  addr: 0.0.0.0:5000
   <% if node['registry_2']['secret'] %>secret: <%= node['registry_2']['secret'] %><% end %>
   debug:
     addr: localhost:5001

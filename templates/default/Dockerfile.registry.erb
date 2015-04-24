@@ -1,0 +1,17 @@
+FROM golang:1.4
+
+ENV DISTRIBUTION_DIR /go/src/github.com/docker/distribution
+ENV GOPATH $DISTRIBUTION_DIR/Godeps/_workspace:$GOPATH
+
+RUN mkdir -p /registry && mkdir -p <%= node['registry_2']['storage']['directory'] %> && cd /tmp && curl -l -O https://codeload.github.com/docker/distribution/tar.gz/v2.0.0 && tar -xvzf /tmp/v2.0.0
+
+RUN mkdir -p $DISTRIBUTION_DIR && cp -rf /tmp/distribution-2.0.0/* $DISTRIBUTION_DIR/
+
+ADD ./config.yml /go/src/github.com/docker/distribution/cmd/registry/config.yml
+
+WORKDIR $DISTRIBUTION_DIR
+RUN cd $DISTRIBUTION_DIR && make PREFIX=/go clean binaries
+
+EXPOSE 5000
+ENTRYPOINT ["registry"]
+CMD ["cmd/registry/config.yml"]
