@@ -118,14 +118,14 @@ docker_image "nginx:ready" do
   action :build
 end
 
-docker_image "registry:ready" do
-  action :remove
-end
+# docker_image "registry:ready" do
+#   action :remove
+# end
 
-docker_image "registry:ready" do
-  source "#{node["registry_2"]["registry"]["path"]}"
-  action :build
-end
+# docker_image "registry:ready" do
+#   source "#{node["registry_2"]["registry"]["path"]}"
+#   action :build
+# end
 
 
 bash 'Run containers' do
